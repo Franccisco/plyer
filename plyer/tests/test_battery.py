@@ -17,7 +17,6 @@ from os.path import join
 from textwrap import dedent
 from mock import patch, Mock
 
-from plyer.compat import text_type
 from plyer.tests.common import PlatformTest, platform_import
 
 
@@ -132,7 +131,7 @@ class MockedUPower(object):
         u'History (rate)': u'1530958556  7,474   discharging'
     }
 
-    data = text_type(
+    data = """
         '  native-path:          {native-path}\n'
         '  vendor:               {vendor}\n'
         '  model:                {model}\n'
@@ -160,7 +159,7 @@ class MockedUPower(object):
         '    {History (charge)}\n'
         '  History (rate):\n'
         '    {History (rate)}\n'
-    ).format(**values).encode('utf-8')
+        """.format(**values)
     # LinuxBattery calls decode()
 
     def __init__(self, *args, **kwargs):
